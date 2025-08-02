@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Battle Arena - Strategic Combat Game</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='game.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <header class="game-header">
+            <h1><i class="fas fa-robot"></i> AI Battle Arena</h1>
+            <p>Strategic Combat Against Intelligent AI Opponents</p>
+        </header>
+
+        <div class="game-setup" id="gameSetup">
+            <div class="setup-card">
+                <h2>Choose Your Challenge</h2>
+                <div class="difficulty-selector">
+                    <button class="difficulty-btn" data-difficulty="easy">
+                        <i class="fas fa-seedling"></i>
+                        <span>Easy</span>
+                        <small>Basic AI patterns</small>
+                    </button>
+                    <button class="difficulty-btn active" data-difficulty="medium">
+                        <i class="fas fa-brain"></i>
+                        <span>Medium</span>
+                        <small>Adaptive AI learning</small>
+                    </button>
+                    <button class="difficulty-btn" data-difficulty="hard">
+                        <i class="fas fa-fire"></i>
+                        <span>Hard</span>
+                        <small>Advanced AI strategy</small>
+                    </button>
+                </div>
+                <button id="startGameBtn" class="start-btn">
+                    <i class="fas fa-play"></i> Start Battle
+                </button>
+            </div>
+        </div>
+
+        <div class="game-arena" id="gameArena" style="display: none;">
+            <div class="battle-status">
+                <div class="player-status">
+                    <h3><i class="fas fa-user"></i> Player</h3>
+                    <div class="health-bar">
+                        <div class="bar-label">Health</div>
+                        <div class="bar">
+                            <div class="bar-fill health" id="playerHealth"></div>
+                            <span class="bar-text" id="playerHealthText">100/100</span>
+                        </div>
+                    </div>
+                    <div class="energy-bar">
+                        <div class="bar-label">Energy</div>
+                        <div class="bar">
+                            <div class="bar-fill energy" id="playerEnergy"></div>
+                            <span class="bar-text" id="playerEnergyText">100/100</span>
+                        </div>
+                    </div>
+                    <div class="score">Score: <span id="playerScore">0</span></div>
+                </div>
+
+                <div class="vs-indicator">
+                    <div class="turn-counter">Turn <span id="turnCount">0</span></div>
+                    <div class="vs-text">VS</div>
+                </div>
+
+                <div class="ai-status">
+                    <h3><i class="fas fa-robot"></i> <span id="aiName">AI</span></h3>
+                    <div class="health-bar">
+                        <div class="bar-label">Health</div>
+                        <div class="bar">
+                            <div class="bar-fill health" id="aiHealth"></div>
+                            <span class="bar-text" id="aiHealthText">100/100</span>
+                        </div>
+                    </div>
+                    <div class="energy-bar">
+                        <div class="bar-label">Energy</div>
+                        <div class="bar">
+                            <div class="bar-fill energy" id="aiEnergy"></div>
+                            <span class="bar-text" id="aiEnergyText">100/100</span>
+                        </div>
+                    </div>
+                    <div class="ai-thinking" id="aiThinking" style="display: none;">
+                        <i class="fas fa-cog fa-spin"></i> AI Analyzing...
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-panel">
+                <h3>Choose Your Action</h3>
+                <div class="action-buttons">
+                    <button class="action-btn attack" data-action="attack">
+                        <i class="fas fa-sword"></i>
+                        <span>Attack</span>
+                        <small>10 Energy - Deal damage</small>
+                    </button>
+                    <button class="action-btn defend" data-action="defend">
+                        <i class="fas fa-shield"></i>
+                        <span>Defend</span>
+                        <small>5 Energy - Reduce damage</small>
+                    </button>
+                    <button class="action-btn special" data-action="special">
+                        <i class="fas fa-magic"></i>
+                        <span>Special</span>
+                        <small>25 Energy - Powerful attack</small>
+                    </button>
+                    <button class="action-btn heal" data-action="heal">
+                        <i class="fas fa-heart"></i>
+                        <span>Heal</span>
+                        <small>20 Energy - Restore health</small>
+                    </button>
+                </div>
+            </div>
+
+            <div class="battle-log">
+                <h3>Battle Log</h3>
+                <div class="log-container" id="battleLog">
+                    <div class="log-entry system">Game ready! Choose your first action.</div>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <button id="newGameBtn" class="control-btn">
+                    <i class="fas fa-redo"></i> New Game
+                </button>
+                <button id="statsBtn" class="control-btn">
+                    <i class="fas fa-chart-bar"></i> Stats
+                </button>
+            </div>
+        </div>
+
+        <div class="game-over" id="gameOver" style="display: none;">
+            <div class="game-over-card">
+                <h2 id="gameOverTitle">Game Over</h2>
+                <div id="gameOverMessage"></div>
+                <div class="final-stats" id="finalStats"></div>
+                <button id="playAgainBtn" class="start-btn">
+                    <i class="fas fa-play"></i> Play Again
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-modal" id="statsModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Game Statistics</h3>
+                    <button class="close-btn" id="closeStats">&times;</button>
+                </div>
+                <div class="modal-body" id="statsContent">
+                    <!-- Stats content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+</body>
+</html>
